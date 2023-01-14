@@ -10,11 +10,12 @@ impl Node {
         Node { value, next: None }
     }
 
-    fn append(&mut self: &mut Self, value: i32) {
-        while let Some(ref mut x) = self.next {
-            self = x;
+    fn append(&mut self, value: i32) {
+        let mut curr = self;
+        while let Some(ref mut x) = curr.next {
+            curr = x;
         }
-        self.next = Some(Box::new(Self::new(value)));
+        curr.next = Some(Box::new(Self::new(value)));
     }
 
     fn prepend(&mut self, value: i32) {
