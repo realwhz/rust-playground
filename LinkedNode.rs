@@ -17,6 +17,17 @@ impl Node {
         }
         curr.next = Some(Box::new(Self::new(value)));
     }
+    
+    fn append_rec(&mut self, value: i32) {
+        match self.next {
+            None => {
+                self.next = Some(Box::new(Self::new(value)));
+            },
+            Some(ref mut node) => {
+                node.append_rec(value);
+            }
+        }
+    }
 
     fn prepend(&mut self, value: i32) {
         let old_val = self.value;
@@ -36,5 +47,7 @@ fn main() {
     n.prepend(11);
     n.append(15);
     n.prepend(10);
+    n.append_rec(16);
+    n.append_rec(17);
     println!("{:#?}", n);
 }
